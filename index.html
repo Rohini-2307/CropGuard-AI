@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CropGuard AI - Agriculture Intelligence Platform</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <aside class="sidebar" aria-label="Main menu">
+    <div class="sidebar-brand">
+      <span class="brand-mark">CG</span>
+      <div>
+        <strong>CropGuard AI</strong>
+        <small>AI agriculture platform</small>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="slink active" data-section="dashboard">Dashboard</button>
+      <button class="slink" data-section="cropcare">Crop Care</button>
+      <button class="slink" data-section="assistant">AI Assistant</button>
+      <button class="slink" data-section="marketprofit">Market & Profit</button>
+      <button class="slink" data-section="government">Government Support</button>
+      <button class="slink" data-section="reportsHistory">Reports & History</button>
+      <button class="slink" data-section="about">About Us</button>
+      <button class="slink" data-section="settings">Settings</button>
+    </nav>
+
+    <button id="quickScanBtn" class="button button-primary full">Quick Scan</button>
+  </aside>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Farm Control Center</p>
+        <h1 id="pageTitle">Dashboard</h1>
+      </div>
+      <div class="top-actions">
+        <select id="languageSelect" class="language-select" aria-label="Choose language">
+          <option value="en-IN">English</option>
+          <option value="hi-IN">Hindi</option>
+          <option value="te-IN">Telugu</option>
+        </select>
+        <button id="themeToggle" class="button button-secondary">Dark</button>
+      </div>
+    </header>
+
+    <section id="dashboard" class="dashboard-section active">
+      <div class="stats-grid enhanced">
+        <article class="stat-card score-card"><p>Farm Health Score</p><h2 id="farmHealthScore">86</h2><span>Healthy with moderate weather risk</span><div class="meter"><span style="width: 86%"></span></div></article>
+        <article class="stat-card"><p>Crops Scanned</p><h2 id="statScans">12.4K</h2><span>Leaf scans processed</span></article>
+        <article class="stat-card"><p>Disease Risk</p><h2 id="dashDiseaseRisk">28%</h2><span>Low to moderate</span></article>
+        <article class="stat-card"><p>Weather Risk</p><h2 id="dashWeatherRisk">34%</h2><span>Humidity watch</span></article>
+        <article class="stat-card"><p>Pest Risk</p><h2 id="dashPestRisk">22%</h2><span>Early prevention advised</span></article>
+        <article class="stat-card"><p>AI Confidence</p><h2 id="statConf">98%</h2><span>Average diagnosis score</span></article>
+        <article class="stat-card"><p>Profit Forecast</p><h2 id="dashboardProfit">Rs 38K</h2><span>Projected seasonal gain</span></article>
+        <article class="stat-card"><p>Scheme Alerts</p><h2 id="statAlerts">3</h2><span>PM-KISAN, insurance, subsidy</span></article>
+      </div>
+
+      <div class="dashboard-grid">
+        <article class="card">
+          <h2>Farm Intelligence Chart</h2>
+          <div class="chart-card">
+            <div><span>Disease Safety</span><strong>72%</strong><i style="height: 72%"></i></div>
+            <div><span>Soil Health</span><strong>81%</strong><i style="height: 81%"></i></div>
+            <div><span>Water Balance</span><strong>64%</strong><i style="height: 64%"></i></div>
+            <div><span>Market Timing</span><strong>78%</strong><i style="height: 78%"></i></div>
+          </div>
+        </article>
+        <article class="card">
+          <h2>Today's Recommendations</h2>
+          <ul class="priority-list">
+            <li>Scan crop leaves after rain because humidity can trigger fungal disease.</li>
+            <li>Compare offered price with current mandi price before selling.</li>
+            <li>Check PMFBY crop insurance and micro irrigation subsidy eligibility.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="dashboard-grid">
+        <article class="card">
+          <h2>Recent Activity</h2>
+          <ul id="recentActivities" class="history-list"><li>No recent activity yet. Start with a crop scan or profit estimate.</li></ul>
+        </article>
+        <article class="card">
+          <h2>Hackathon crop Flow</h2>
+          <div class="journey">
+            <span>Upload Image</span><span>Detect Disease</span><span>Analyze Weather</span><span>Recommend Treatment</span><span>Estimate Profit</span><span>Compare Market</span><span>Suggest Schemes</span>
+          </div>
+          <button id="runJourneyBtn" class="button button-primary">Run crop Journey</button>
+          <div id="journeyOutput" class="output">Run the journey to generate complete decision support.</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="cropcare" class="dashboard-section">
+      <div class="module-tabs" role="tablist">
+        <button class="tab-btn active" data-tab="diseaseTab">Disease Detection</button>
+        <button class="tab-btn" data-tab="soilTab">Soil Health Advisor</button>
+        <button class="tab-btn" data-tab="weatherTab">Weather Alerts</button>
+        <button class="tab-btn" data-tab="pestTab">Pest Risk Predictor</button>
+        <button class="tab-btn" data-tab="irrigationTab">Irrigation Advisor</button>
+      </div>
+
+      <div id="diseaseTab" class="tab-panel active">
+        <div class="two-column">
+          <article class="card">
+            <h2>AI Disease Detection</h2>
+            <p>Upload a crop image and get disease prediction, confidence, treatment, prevention, and recovery timeline.</p>
+            <div class="scan-area">
+              <label class="dropbox" for="imageInput">
+                <input id="imageInput" type="file" accept="image/*" capture="environment" />
+                <span class="camera">Camera</span>
+                <strong>Click or drop a crop image</strong>
+                <small>Supports camera capture on mobile</small>
+              </label>
+              <div id="previewContainer" class="preview hidden"><img id="previewImage" alt="Leaf preview" /><div id="infectedOverlay" class="infected-overlay hidden"></div></div>
+              <button id="analyzeBtn" class="button button-primary">Scan crop</button>
+              <div id="scanOverlay" class="scan-overlay hidden"><div id="scanMessage">Analyzing crop image...</div><div class="scan-progress"><div id="scanProgressBar" class="scan-bar"></div></div></div>
+              <p id="analyzeMessage" class="help">Choose an image and click scan.</p>
+            </div>
+          </article>
+          <article class="card result-card">
+            <h2>Diagnosis Results</h2>
+            <div class="result-row"><strong>Disease</strong><span id="resultDisease">None</span></div>
+            <div class="result-row"><strong>Severity</strong><span id="resultSeverity">-</span></div>
+            <div class="result-row"><strong>Confidence</strong><span id="resultConfidence">0%</span></div>
+            <div class="confidence-bar"><span id="confidenceBar"></span></div>
+            <div class="result-visuals"><div class="result-circle"><span class="percentage">0%</span></div><div class="severity-bar"><span class="severity-fill"></span></div></div>
+            <div class="result-row"><strong>Symptoms</strong><span id="resultReason">Upload an image to see symptoms.</span></div>
+            <div class="result-row"><strong>Causes</strong><span id="resultCause">-</span></div>
+            <div class="result-row"><strong>Treatment</strong><span id="resultTreatment">-</span></div>
+            <div class="result-row"><strong>Prevention</strong><span id="resultPrevention">-</span></div>
+            <div class="result-row"><strong>Recovery</strong><span id="resultRecovery">-</span></div>
+            <div class="result-row"><strong>Fertilizer</strong><span id="resultFertilizer">-</span></div>
+            <div class="result-row"><strong>Precaution</strong><span id="resultWarning">-</span></div>
+          </article>
+        </div>
+      </div>
+
+      <div id="soilTab" class="tab-panel">
+        <div class="two-column">
+          <article class="card">
+            <h2>Soil Health Advisor</h2>
+            <div class="soil-grid">
+              <label>Soil Type <select id="soilTypeSelect"><option>Loamy</option><option>Black soil</option><option>Red soil</option><option>Sandy</option><option>Clay</option></select></label>
+              <label>Soil pH <input id="soilPh" type="number" min="3" max="10" step="0.1" value="6.8" /></label>
+              <label>Nitrogen <input id="soilNitrogen" type="number" min="0" max="100" value="45" /></label>
+              <label>Moisture % <input id="soilMoisture" type="number" min="0" max="100" value="52" /></label>
+              <label>Organic matter % <input id="soilOrganic" type="number" min="0" max="20" step="0.1" value="3.2" /></label>
+            </div>
+            <button id="soilAdviceBtn" class="button button-primary">Get Soil Advice</button>
+            <div id="soilAdvice" class="output">Soil recommendations will appear here.</div>
+          </article>
+          <article class="card">
+            <h2>Crop Recommendation Engine</h2>
+            <div class="soil-grid">
+              <label>Soil Type <input id="cropSoilType" value="Black soil" /></label>
+              <label>Location <input id="cropLocation" value="Telangana" /></label>
+              <label>Season <select id="cropSeason"><option>Kharif</option><option>Rabi</option><option>Summer</option></select></label>
+            </div>
+            <button id="cropRecommendBtn" class="button button-secondary">Recommend Crops</button>
+            <div id="cropRecommendation" class="output">Recommended crops will appear here.</div>
+          </article>
+        </div>
+      </div>
+
+      <div id="weatherTab" class="tab-panel">
+        <div class="two-column">
+          <article class="card">
+            <h2>Weather Alerts</h2>
+            <div class="weather-metrics">
+              <div><strong id="weatherTemp">28 C</strong><span>Temperature</span></div>
+              <div><strong id="weatherHumidity">62%</strong><span>Humidity</span></div>
+              <div><strong id="weatherRain">18%</strong><span>Rain Probability</span></div>
+              <div><strong id="weatherWind">9 km/h</strong><span>Wind Speed</span></div>
+            </div>
+            <div class="weather-box"><div><strong>Forecast:</strong> <span id="weatherDesc">Sunny</span></div><div><strong>Recommendation:</strong> <span id="weatherAdvice">Water early morning and watch for pests.</span></div></div>
+            <div class="actions"><button id="refreshWeather" class="button button-primary">Refresh Weather</button><button id="useLocationBtn" class="button button-secondary">Use My Location</button></div>
+            <p id="weatherMessage" class="help">Real weather from Open-Meteo is used when available.</p>
+          </article>
+          <article class="card"><h2>Risk Warnings</h2><div id="weatherAlerts" class="alert-list"><div class="alert info">Weather alerts will update after refresh.</div></div></article>
+        </div>
+      </div>
+
+      <div id="pestTab" class="tab-panel">
+        <article class="card">
+          <h2>Pest Risk Predictor</h2>
+          <div class="soil-grid">
+            <label>Crop <input id="pestCrop" value="Cotton" /></label>
+            <label>Humidity % <input id="pestHumidity" type="number" value="72" /></label>
+            <label>Temperature C <input id="pestTemp" type="number" value="29" /></label>
+          </div>
+          <button id="pestBtn" class="button button-primary">Predict Pest Risk</button>
+          <div id="pestOutput" class="output">Risk percentage, prevention methods, and warning alerts will appear here.</div>
+        </article>
+      </div>
+
+      <div id="irrigationTab" class="tab-panel">
+        <article class="card">
+          <h2>Irrigation Advisor</h2>
+          <div class="soil-grid">
+            <label>Crop Type <input id="irrigationCrop" value="Tomato" /></label>
+            <label>Soil Type <input id="irrigationSoil" value="Loamy" /></label>
+          </div>
+          <button id="irrigationBtn" class="button button-secondary">Generate Irrigation Plan</button>
+          <div id="irrigationAdvice" class="output">Water requirement, irrigation schedule, and rainfall-based advice will appear here.</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="assistant" class="dashboard-section">
+      <div class="module-tabs" role="tablist">
+        <button class="tab-btn active" data-tab="chatTab">Chat Mode</button>
+        <button class="tab-btn" data-tab="voiceTab">Voice Mode</button>
+      </div>
+      <div id="chatTab" class="tab-panel active">
+        <article class="card">
+          <h2>Smart AI Farming Assistant</h2>
+          <p>Ask crop, disease, market, weather, or scheme questions in English, Hindi, or Telugu.</p>
+          <div class="quick-questions">
+            <button class="quick-q button button-secondary">Why are my leaves yellow?</button>
+            <button class="quick-q button button-secondary">Best fertilizer for rice?</button>
+            <button class="quick-q button button-secondary">Tomato market selling advice?</button>
+            <button class="quick-q button button-secondary">PM-KISAN eligibility?</button>
+          </div>
+          <textarea id="chatQuestion" placeholder="Ask about disease, weather, fertilizer, market prices, irrigation, or schemes."></textarea>
+          <div class="actions"><button id="askBtn" class="button button-primary">Ask AI</button><div id="aiTyping" class="ai-typing hidden">AI is typing...</div></div>
+          <div id="chatAnswer" class="output">Your answer will appear here.</div>
+          <div class="actions"><button id="listenBtn" class="button button-secondary">Listen</button><button id="shareBtn" class="button button-secondary">Share</button></div>
+        </article>
+      </div>
+      <div id="voiceTab" class="tab-panel">
+        <article class="card">
+          <h2>Voice Mode</h2>
+          <textarea id="voiceQuestion" placeholder="Ask by voice or type your farming question."></textarea>
+          <div class="actions"><button id="startVoiceBtn" class="button button-primary">Start Voice</button><button id="answerVoiceBtn" class="button button-secondary">Answer</button><button id="speakVoiceBtn" class="button button-secondary">Speak Answer</button></div>
+          <div id="voiceAnswer" class="output">Your voice answer will appear here.</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="marketprofit" class="dashboard-section">
+      <div class="module-tabs" role="tablist">
+        <button class="tab-btn active" data-tab="marketTab">Market Intelligence</button>
+        <button class="tab-btn" data-tab="profitTab">Crop Profit Estimator</button>
+        <button class="tab-btn" data-tab="sellingTab">Selling Advisor</button>
+        <button class="tab-btn" data-tab="investmentTab">Investment Planner</button>
+      </div>
+      <div id="marketTab" class="tab-panel active"><article class="card"><h2>Market Intelligence</h2><p>Current crop prices, trends, demand, price forecasts, and best selling windows.</p><div id="marketCards" class="market-grid"></div></article></div>
+      <div id="profitTab" class="tab-panel">
+        <div class="two-column">
+          <article class="card">
+            <h2>Crop Profit Estimator</h2>
+            <div class="soil-grid">
+              <label>Crop Name <input id="profitCrop" value="Tomato" /></label>
+              <label>Land Area (acre) <input id="landArea" type="number" value="2" min="0.1" step="0.1" /></label>
+              <label>Seed Cost <input id="seedCost" type="number" value="3500" /></label>
+              <label>Fertilizer Cost <input id="fertilizerCost" type="number" value="6000" /></label>
+              <label>Water Cost <input id="waterCost" type="number" value="2500" /></label>
+              <label>Labor Cost <input id="laborCost" type="number" value="12000" /></label>
+              <label>Other Expenses <input id="otherCost" type="number" value="4000" /></label>
+            </div>
+            <button id="profitBtn" class="button button-primary">Estimate Profit</button>
+          </article>
+          <article class="card"><h2>Profit Forecast</h2><div id="profitOutput" class="output">Estimated yield, revenue, cost, profit, margin, and risk will appear here.</div><div class="profit-chart"><div><span>Revenue</span><i id="revenueBar" style="width: 65%"></i></div><div><span>Cost</span><i id="costBar" style="width: 35%"></i></div><div><span>Profit</span><i id="profitBar" style="width: 48%"></i></div></div></article>
+        </div>
+      </div>
+      <div id="sellingTab" class="tab-panel">
+        <div class="two-column">
+          <article class="card"><h2>Smart Crop Selling Advisor</h2><div class="soil-grid"><label>Crop Name <input id="sellCrop" value="Tomato" /></label><label>Quantity (quintal) <input id="sellQuantity" type="number" value="35" /></label><label>Offered Price / quintal <input id="offeredPrice" type="number" value="1650" /></label></div><button id="sellBtn" class="button button-primary">Generate Selling Advice</button></article>
+          <article class="card"><h2>Price Decision</h2><div id="sellingOutput" class="output">Market comparison and AI selling recommendation will appear here.</div><div class="result-circle"><span id="sellScore">0</span></div></article>
+        </div>
+      </div>
+      <div id="investmentTab" class="tab-panel"><article class="card"><h2>Farm Investment Planner</h2><div id="investmentOutput" class="output">Estimate profit to generate emergency fund, reinvestment, irrigation, equipment, and savings recommendations.</div></article></div>
+    </section>
+
+    <section id="government" class="dashboard-section">
+      <div class="module-tabs" role="tablist">
+        <button class="tab-btn active" data-tab="schemesTab">Farmer Schemes</button>
+        <button class="tab-btn" data-tab="newsTab">Agriculture News</button>
+        <button class="tab-btn" data-tab="subsidiesTab">Subsidies</button>
+        <button class="tab-btn" data-tab="warningsTab">Weather Warnings</button>
+      </div>
+      <div id="schemesTab" class="tab-panel active">
+        <div class="two-column">
+          <article class="card">
+            <h2>Find Schemes For Me</h2>
+            <div class="soil-grid">
+              <label>State <input id="schemeState" value="Telangana" /></label>
+              <label>Crop <input id="schemeCrop" value="Tomato" /></label>
+              <label>Land Size (acre) <input id="schemeLand" type="number" value="2" min="0" step="0.1" /></label>
+            </div>
+            <button id="findSchemesBtn" class="button button-primary">Find Eligible Schemes</button>
+            <div id="schemeFinderOutput" class="output">Enter state, crop, and land size to view eligible schemes and estimated benefits.</div>
+          </article>
+          <article class="card">
+            <h2>Search Schemes</h2>
+            <div class="filter-row"><input id="schemeSearch" placeholder="Search PM-KISAN, Rythu Bharosa, subsidy..." /><select id="schemeFilter"><option value="all">All</option><option value="central">Central</option><option value="state">State</option><option value="insurance">Insurance</option><option value="subsidy">Subsidy</option><option value="pension">Pension</option></select></div>
+          </article>
+        </div>
+        <div id="schemeCards" class="market-grid"></div>
+      </div>
+      <div id="newsTab" class="tab-panel">
+        <article class="card">
+          <h2>Agriculture News</h2>
+          <div class="filter-row"><input id="newsSearch" placeholder="Search announcements, market, weather..." /><select id="newsFilter"><option value="all">All News</option><option value="government">Government Announcements</option><option value="scheme">Scheme Updates</option><option value="market">Market Updates</option><option value="weather">Weather Alerts</option></select></div>
+          <div id="newsCards" class="market-grid"></div>
+        </article>
+      </div>
+      <div id="subsidiesTab" class="tab-panel"><article class="card"><h2>Subsidies</h2><div class="alert-list"><div class="alert info">Fertilizer subsidy support helps reduce nutrient input costs.</div><div class="alert info">Micro irrigation subsidy can support drip and sprinkler installation.</div><div class="alert info">Farm machinery subsidy can reduce equipment upgrade cost.</div></div></article></div>
+      <div id="warningsTab" class="tab-panel"><article class="card"><h2>Weather Warnings</h2><div class="alert-list"><div class="alert warning">Check official district weather warnings before spraying.</div><div class="alert danger">Avoid pesticide application during heavy wind or rain.</div><div class="alert info">Use the Weather Alerts tab for local crop intelligence.</div></div></article></div>
+    </section>
+
+    <section id="reportsHistory" class="dashboard-section">
+      <div class="module-tabs" role="tablist">
+        <button class="tab-btn active" data-tab="scanHistoryTab">Scan History</button>
+        <button class="tab-btn" data-tab="reportsTab">Reports</button>
+        <button class="tab-btn" data-tab="pdfTab">PDF Export</button>
+      </div>
+      <div id="scanHistoryTab" class="tab-panel active"><div class="two-column"><article class="card"><h2>Disease Scan History</h2><ul id="historyList" class="history-list"><li>No uploads yet.</li></ul></article><article class="card"><h2>AI Recommendations & Decisions</h2><ul id="chatHistoryList" class="history-list"><li>No questions yet.</li></ul></article></div></div>
+      <div id="reportsTab" class="tab-panel"><article class="card"><h2>Reports</h2><div class="report-grid"><div><strong>Weekly Report</strong><span>Crop health and weather summary.</span></div><div><strong>Farm Health Report</strong><span>Disease, pest, soil, and water risk.</span></div><div><strong>Profit Report</strong><span>Revenue, cost, margin, and selling decisions.</span></div></div><div id="reportOutput" class="output">Reports include disease scans, weather alerts, AI recommendations, selling decisions, and profit calculations.</div></article></div>
+      <div id="pdfTab" class="tab-panel"><article class="card"><h2>PDF Export</h2><div class="actions"><button id="downloadReportBtn" class="button button-primary">Download Report</button><button id="printReportBtn" class="button button-secondary">PDF Export</button></div></article></div>
+    </section>
+
+    <section id="about" class="dashboard-section">
+      <div class="module-tabs" role="tablist">
+        <button class="tab-btn active" data-tab="overviewTab">Overview</button>
+        <button class="tab-btn" data-tab="faqTab">FAQ</button>
+        <button class="tab-btn" data-tab="contactTab">Contact Information</button>
+      </div>
+      <div id="overviewTab" class="tab-panel active"><article class="card"><h2>CropGuard AI</h2><div class="about-grid"><div><strong>Vision</strong><span>Make AI agriculture guidance accessible to every farmer.</span></div><div><strong>Mission</strong><span>Unify crop health, weather, soil, market, and schemes in one practical dashboard.</span></div><div><strong>Problem Statement</strong><span>Farmers lose income due to late disease detection, weak market visibility, and scattered support information.</span></div><div><strong>Social Impact</strong><span>Reduce crop loss, improve profits, and promote sustainable water and input use.</span></div><div><strong>AI Models Used</strong><span>crop disease classifier, advisory logic, market scoring, profit risk scoring.</span></div><div><strong>APIs & Tools</strong><span>Open-Meteo, browser speech APIs, geolocation, local storage, HTML, CSS, JavaScript.</span></div></div></article></div>
+      <div id="faqTab" class="tab-panel"><article class="card"><h2>FAQ</h2><div class="faq-list"><details open><summary>How disease detection works?</summary><p>The crop simulates image-based AI prediction and displays confidence, symptoms, treatment, prevention, and recovery guidance.</p></details><details><summary>How accurate is AI?</summary><p>This crop is presentation-ready logic. A production version should connect a trained crop disease model and validate it with field images.</p></details><details><summary>Which crops are supported?</summary><p>The crop supports common crop workflows for tomato, rice, chilli, cotton, maize, and generic crops.</p></details><details><summary>How weather recommendations work?</summary><p>Weather risk uses temperature, humidity, wind, and rain probability to generate irrigation and disease-risk alerts.</p></details><details><summary>How profit estimation works?</summary><p>It combines land area, estimated yield, current crop market price, and farmer input costs.</p></details><details><summary>Privacy and security information</summary><p>crop data stays in browser local storage. No image is uploaded to a server in this static crop.</p></details></div></article></div>
+      <div id="contactTab" class="tab-panel"><article class="card"><h2>Contact Information</h2><div class="two-column"><form id="feedbackForm" class="feedback-form"><label>Name <input id="feedbackName" required /></label><label>Message <textarea id="feedbackMessage" required placeholder="Share feedback or farming issue."></textarea></label><button class="button button-primary" type="submit">Send Feedback</button></form><div class="output"><strong>Email:</strong> rohinigandhamalla@567gmail.com<br /><strong>Phone:</strong> 9390399338<br /><span id="feedbackStatus">Feedback status will appear here.</span></div></div></article></div>
+    </section>
+
+    <section id="settings" class="dashboard-section">
+      <article class="card">
+        <h2>Settings</h2>
+        <div class="soil-grid">
+          <label>Language <select id="settingsLanguage"><option>English</option><option>Hindi</option><option>Telugu</option></select></label>
+          <label>Theme <select id="settingsTheme"><option>System</option><option>Light</option><option>Dark</option></select></label>
+          <label><input id="notifyWeather" type="checkbox" checked /> Weather notifications</label>
+          <label><input id="largeText" type="checkbox" /> Larger text</label>
+        </div>
+        <div class="actions"><button id="clearDataBtn" class="button button-secondary">Clear crop History</button><button id="resetcropBtn" class="button button-secondary">Reset crop Outputs</button></div>
+        <div id="toast" class="toast hidden">Saved</div>
+      </article>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
